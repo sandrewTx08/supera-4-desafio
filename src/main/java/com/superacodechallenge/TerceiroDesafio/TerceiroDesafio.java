@@ -1,5 +1,6 @@
 package com.superacodechallenge.TerceiroDesafio;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TerceiroDesafio {
@@ -26,11 +27,24 @@ public class TerceiroDesafio {
     }
 
     public static int compararArrayETarget(int k, int[] arr) {
+        Arrays.sort(arr);
+        int left = 0;
+        int right = 1;
         int count = 0;
 
-        for (int i = 0; i < arr.length; ++i) {
-            if (Math.abs(arr[i] - (arr.length - i == 1 ? 0 : arr[i + 1])) == k) {
-                ++count;
+        while (right < arr.length) {
+            int diff = arr[right] - arr[left];
+            if (diff == k) {
+                count++;
+                left++;
+                right++;
+            } else if (diff < k) {
+                right++;
+            } else {
+                left++;
+                if (left == right) {
+                    right++;
+                }
             }
         }
 
